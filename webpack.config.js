@@ -43,6 +43,6 @@ export default {
       jQuery: 'jquery'
     }),
     new HtmlWebpackPlugin({
-      template: '.src/index.html'
+      template: 'index.html'
     })
   ]}
