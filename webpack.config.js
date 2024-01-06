@@ -1,3 +1,4 @@
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import webpack from 'webpack';
@@ -40,6 +41,8 @@ export default {
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'
+    }),
+    new HtmlWebpackPlugin({
+      template: '.src/index.html'
     })
-  ]
-};
+  ]}
