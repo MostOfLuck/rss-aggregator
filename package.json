@@ -1,0 +1,22 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "An RSS aggregator is a tool that collects and displays updates from various websites' RSS feeds in one place.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MostOfLuck/frontend-project-11?tab=readme-ov-file"
+  },
+  "author": "MostOfLuck",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MostOfLuck/frontend-project-11/issues"
+  },
+  "homepage": "https://github.com/MostOfLuck/frontend-project-11#readme",
+  "devDependencies": {
+    "webpack": "^5.89.0"
+  }
+}
