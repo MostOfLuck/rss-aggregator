@@ -1,4 +1,11 @@
 import * as yup from 'yup';
+import initRssFormView from './view.js'
+
+document.addEventListener('DOMContentLoaded', () => {
+  const existingUrls = [];
+
+  initRssFormView(validateURL, existingUrls);
+});
 
 const rssUrlSchema = yup.string().url('URL должен быть валидным').test(
   'is-rss',
