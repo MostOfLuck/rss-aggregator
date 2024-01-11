@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Пример страницы с Bootstrap</title>
     <!-- Подключение Bootstrap CSS -->
+    <link href="style.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <script defer src="bundle.js"></script></head>
-
 <body>
     <div class="container mt-5">
-        <!-- Сетка Bootstrap -->
         <div class="row">
             <div class="col-md-8">
                 <h2>Добро пожаловать на нашу страницу!</h2>
-                <!-- Аккордеон Bootstrap -->
                 <div id="accordionExample">
                     <div class="card">
                         <div class="card-header" id="headingOne">
@@ -37,7 +34,7 @@
             </div>
             <div class="col-md-4">
                 <!-- Форма для добавления RSS-потока -->
-                <form>
+                <form id="rssForm">
                     <div class="form-group">
                         <label for="rssInput">RSS Поток</label>
                         <input type="text" class="form-control" id="rssInput" aria-describedby="rssHelp" placeholder="Введите URL RSS-потока">
@@ -45,6 +42,8 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 </form>
+                <!-- Элемент для отображения ошибок валидации -->
+                <div id="validationError" class="text-danger mt-2"></div>
             </div>
         </div>
     </div>
@@ -53,6 +52,38 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
 
+    <!-- Инлайн JavaScript для валидации URL и обработки формы -->
+    <script type="module">
+      import { validateURL } from '.bin/urlValidation.js'; // Убедитесь, что путь корректен
+  
+      document.addEventListener('DOMContentLoaded', () => {
+          const form = document.getElementById('rssForm');
+          const urlInput = document.getElementById('rssInput');
+          const validationError = document.getElementById('validationError');
+  
+          // Пример существующих URL, нужно обновить в соответствии с вашим приложением
+          const existingUrls = []; 
+  
+          form.addEventListener('submit', (event) => {
+              event.preventDefault();
+              const url = urlInput.value;
+  
+              validateURL(url, existingUrls)
+                  .then((result) => {
+                      if (result.valid) {
+                          validationError.textContent = '';
+                          urlInput.classList.remove('is-invalid');
+                          // Дополнительные действия для валидного URL
+                      }
+                  })
+                  .catch((error) => {
+                      validationError.textContent = error.message;
+                      urlInput.classList.add('is-invalid');
+                  });
+          });
+      });
+  </script>
+  
+</body>
 </html>
