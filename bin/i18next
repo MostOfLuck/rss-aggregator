@@ -1,0 +1,27 @@
+import i18n from 'i18next';
+
+i18n
+  .init({
+    resources: {
+      en: {
+        translation: {
+          "key": "Your English Text Here",
+          // Другие английские переводы...
+        }
+      },
+      ru: {
+        translation: {
+          "key": "Ваш русский текст здесь",
+          // Другие русские переводы...
+        }
+      }
+      // Другие языковые ресурсы...
+    },
+    lng: "en", // Установка языка по умолчанию
+    fallbackLng: "en",
+    interpolation: {
+      escapeValue: false
+    }
+  });
+
+export default i18n;
