@@ -1,4 +1,5 @@
-import { validateURL } from './urlValidation.js';
+import { validateURL } from './urlValidation';
+import i18n from './i18n';
 
 export const initRssFormView = (existingUrls) => {
   const form = document.getElementById('rssForm');
@@ -18,7 +19,7 @@ export const initRssFormView = (existingUrls) => {
               }
           })
           .catch((error) => {
-              validationError.textContent = error.message;
+              validationError.textContent = i18n.t(error.message);
               urlInput.classList.add('is-invalid');
           });
   });
