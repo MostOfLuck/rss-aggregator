@@ -1,16 +1,16 @@
 import * as yup from 'yup';
-import initRssFormView from './view.js'
+import i18n from './i18n'; // Убедитесь, что путь к файлу правильный
 
-document.addEventListener('DOMContentLoaded', () => {
-  const existingUrls = [];
-
-  initRssFormView(validateURL, existingUrls);
+yup.setLocale({
+  string: {
+    url: () => i18n.t('valid_url_required')
+  }
 });
 
-const rssUrlSchema = yup.string().url('URL должен быть валидным').test(
+const rssUrlSchema = yup.string().url().test(
   'is-rss',
-  'URL должен быть ссылкой на RSS-поток',
-  value => value.endsWith('.rss') || value.endsWith('.xml')
+  () => i18n.t('rss_link_required'),
+  value => value && (value.endsWith('.rss') || value.endsWith('.xml'))
 );
 
 export const validateURL = (url, existingUrls) => {
@@ -21,7 +21,7 @@ export const validateURL = (url, existingUrls) => {
   return rssUrlSchema.validate(url)
     .then(validUrl => {
       if (existingUrls.includes(validUrl)) {
-        return Promise.reject(new Error('URL уже добавлен'));
+        throw new Error(i18n.t('url_already_added'));
       }
       return { valid: true };
     })
