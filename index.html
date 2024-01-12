@@ -13,6 +13,11 @@
         <div class="row">
             <div class="col-md-8">
                 <h2>RSS агрегатор</h2>
+                <div class="col-md-8">
+                  <!-- Остальные элементы... -->
+                  <!-- Контейнер для отображения RSS фидов и постов -->
+                  <div id="feedContainer" class="mt-4"></div>
+              </div>
                 <div id="accordionExample">
                     <div class="card">
                         <div class="card-header" id="headingOne">
@@ -55,15 +60,16 @@
 
     <!-- Инлайн JavaScript для валидации URL и обработки формы -->
     <script type="module">
-      import { validateURL } from '../bin/urlValidation.js'; // Убедитесь, что путь корректен
+      import { validateURL } from '../bin/urlValidation.js'; // Путь к файлу валидации
+      import { fetchRSS, parseRSS } from './rssFetcher.js'; // Путь к вашему файлу fetcher
+      import { displayRSS } from './rssRenderer.js'; // Путь к вашему файлу renderer
   
       document.addEventListener('DOMContentLoaded', () => {
           const form = document.getElementById('rssForm');
           const urlInput = document.getElementById('rssInput');
           const validationError = document.getElementById('validationError');
-  
-          // Пример существующих URL, нужно обновить в соответствии с вашим приложением
-          const existingUrls = []; 
+          const feedContainer = document.getElementById('feedContainer'); // Контейнер для фидов
+          const existingUrls = []; // Список существующих URL
   
           form.addEventListener('submit', (event) => {
               event.preventDefault();
@@ -74,7 +80,19 @@
                       if (result.valid) {
                           validationError.textContent = '';
                           urlInput.classList.remove('is-invalid');
-                          // Дополнительные действия для валидного URL
+  
+                          // Добавление нового RSS-потока
+                          fetchRSS(url)
+                              .then(parseRSS)
+                              .then(feed => {
+                                  displayRSS(feed, 'feedContainer');
+                                  existingUrls.push(url); // Добавление URL в список существующих
+                                  urlInput.value = ''; // Очищение поля ввода
+                              })
+                              .catch(error => {
+                                  console.error('Ошибка при загрузке RSS:', error);
+                                  // Обработка ошибок и отображение сообщения пользователю
+                              });
                       }
                   })
                   .catch((error) => {
@@ -84,6 +102,6 @@
           });
       });
   </script>
-  
+
 </body>
 </html>
