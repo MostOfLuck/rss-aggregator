@@ -14,7 +14,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 const config = {
   entry: './src/index.js',
   output: {
-    path: path.resolve(dirName, 'dist'),
+    path: path.resolve(dirName, 'public'),
   },
   devServer: {
     open: true,
