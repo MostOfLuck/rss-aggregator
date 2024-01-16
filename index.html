@@ -1,107 +1,68 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Пример страницы с Bootstrap</title>
-    <!-- Подключение Bootstrap CSS -->
-    <link href="style.css" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-8">
-                <h2>RSS агрегатор</h2>
-                <div class="col-md-8">
-                  <!-- Остальные элементы... -->
-                  <!-- Контейнер для отображения RSS фидов и постов -->
-                  <div id="feedContainer" class="mt-4"></div>
-              </div>
-                <div id="accordionExample">
-                    <div class="card">
-                        <div class="card-header" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    Секция 1
-                                </button>
-                            </h2>
-                        </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+        <title>Hexlet frontend project</title>
+    </head>
 
-                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                            <div class="card-body">
-                                Содержимое первой секции аккордеона.
-                            </div>
-                        </div>
+    <body class="d-flex flex-column min-vh-100">
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <!-- Дополнительные секции аккордеона можно добавить здесь -->
+                    <div class="modal-body text-break"></div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary full-article" href="#" role="button" target="_blank" rel="noopener noreferrer">Читать полностью </a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <!-- Форма для добавления RSS-потока -->
-                <form id="rssForm">
-                    <div class="form-group">
-                        <label for="rssInput">RSS Поток</label>
-                        <input type="text" class="form-control" id="rssInput" aria-describedby="rssHelp" placeholder="Введите URL RSS-потока">
-                        <small id="rssHelp" class="form-text text-muted">Добавьте новый RSS-поток для отслеживания.</small>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Добавить</button>
-                </form>
-                <!-- Элемент для отображения ошибок валидации -->
-                <div id="validationError" class="text-danger mt-2"></div>
-            </div>
         </div>
-    </div>
 
-    <!-- Подключение Bootstrap JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <main class="flex-grow-1">
+            <section class="container-fluid bg-dark p-5">
+                <div class="row">
+                    <div class="col-md-10 col-lg-8 mx-auto text-white">
+                        <h1 class="title display-3 mb-0">RSS агрегатор</h1>
+                        <p class="subTitle lead">Начните читать RSS сегодня! Это легко, это красиво.</p>
+                        <form action="" class="rss-form text-body">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input id="url-input" autofocus="" required="" name="url" aria-label="url" class="form-control w-100" placeholder="ссылка RSS" autocomplete="off">
+                                        <label for="url-input" class="rssLink">Ссылка RSS</label>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" aria-label="add" class="mainButton h-100 btn btn-lg btn-primary px-sm-5">Добавить</button>
+                                </div>
+                            </div>
+                        </form>
+                        <p class="exampleUrl mt-2 mb-0 text-muted">Пример: https://ru.hexlet.io/lessons.rss</p>
+                        <p class="feedback m-0 position-absolute small text-danger"></p>
+                    </div>
+                </div>
+            </section>
 
-    <!-- Инлайн JavaScript для валидации URL и обработки формы -->
-    <script type="module">
-      import { validateURL } from '../bin/urlValidation.js'; // Путь к файлу валидации
-      import { fetchRSS, parseRSS } from './rssFetcher.js'; // Путь к вашему файлу fetcher
-      import { displayRSS } from './rssRenderer.js'; // Путь к вашему файлу renderer
-  
-      document.addEventListener('DOMContentLoaded', () => {
-          const form = document.getElementById('rssForm');
-          const urlInput = document.getElementById('rssInput');
-          const validationError = document.getElementById('validationError');
-          const feedContainer = document.getElementById('feedContainer'); // Контейнер для фидов
-          const existingUrls = []; // Список существующих URL
-  
-          form.addEventListener('submit', (event) => {
-              event.preventDefault();
-              const url = urlInput.value;
-  
-              validateURL(url, existingUrls)
-                  .then((result) => {
-                      if (result.valid) {
-                          validationError.textContent = '';
-                          urlInput.classList.remove('is-invalid');
-  
-                          // Добавление нового RSS-потока
-                          fetchRSS(url)
-                              .then(parseRSS)
-                              .then(feed => {
-                                  displayRSS(feed, 'feedContainer');
-                                  existingUrls.push(url); // Добавление URL в список существующих
-                                  urlInput.value = ''; // Очищение поля ввода
-                              })
-                              .catch(error => {
-                                  console.error('Ошибка при загрузке RSS:', error);
-                                  // Обработка ошибок и отображение сообщения пользователю
-                              });
-                      }
-                  })
-                  .catch((error) => {
-                      validationError.textContent = error.message;
-                      urlInput.classList.add('is-invalid');
-                  });
-          });
-      });
-  </script>
+            <section class="container-fluid container-xxl p-5">
+                <div class="row">
+                    <div class="col-md-10 col-lg-8 order-1 mx-auto posts"></div>
+                    <div class="col-md-10 col-lg-4 mx-auto order-0 order-lg-1 feeds"></div>
+                </div>
+            </section>
+        </main>
 
-</body>
+        <footer class="footer border-top py-3 mt-5 bg-light">
+            <div class="container-xl">
+                <div class="text-center">
+                    created by
+                    <a href="https://ru.hexlet.io/professions/frontend/projects/11" target="_blank">Hexlet</a>
+                </div>
+            </div>
+        </footer>
+    </body>
 </html>
