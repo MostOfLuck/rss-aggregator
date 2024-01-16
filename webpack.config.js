@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 
 import path, { dirname } from 'path';
