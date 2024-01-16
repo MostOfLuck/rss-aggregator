@@ -3,12 +3,14 @@
   "type": "module",
   "version": "1.0.0",
   "description": "An RSS aggregator is a tool that collects and displays updates from various websites' RSS feeds in one place.",
-  "main": "src/index.js",
-  "scripts": {
+  "main": "./src/index.js",
+    "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode production",
-    "start": "webpack --mode development",
-    "lint": "eslint --fix . --ext .js,.jsx"
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve"
   },
   "repository": {
     "type": "git",
