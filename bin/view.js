@@ -1,10 +1,10 @@
 import onChange from 'on-change';
 import processStateHandler from './stateHandler.js';
 import errorsHandler from './errorsHandler.js';
-import renderFeeds from './renderModal.js';
+import renderFeeds from './renderFeed.js';
 import renderPosts from './postsRender.js';
 import clickedPostsHandler from './postHandler.js';
-import renderModal from './renderFeed.js';
+import renderModal from './renderModal.js';
 
 const render = (elements, state, i18n) => (path, value) => {
   switch (path) {
