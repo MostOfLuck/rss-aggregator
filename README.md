@@ -10,7 +10,7 @@
 
 How it works:
 --------------
-An RSS aggregator is a tool that collects and displays updates from various websites' RSS feeds in one place
+An RSS aggregator is a tool that collects and displays updates from various websites' RSS feeds in one place.
 
 Demo:
 ------
