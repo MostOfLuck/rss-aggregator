@@ -12,7 +12,24 @@ How it works:
 --------------
 An RSS aggregator is a tool that collects and displays updates from various websites' RSS feeds in one place.
 
+Guide:
+-------
+Install depencies:
+ ```bash
+$  npm install
+```
+
+Build project:
+ ```bash
+$  make build
+```
+
+Open webpack's develop page:
+ ```bash
+$  make develop
+```
+
 Demo:
 ------
 
-You can test my app here: [RSS Agregator](https://frontend-project-11-jbr8-9cglbyg29-sams-projects-8bd7ebfe.vercel.app/)
+You can test my app here: [RSS Aggregator](https://frontend-project-11-jbr8-9cglbyg29-sams-projects-8bd7ebfe.vercel.app/)
