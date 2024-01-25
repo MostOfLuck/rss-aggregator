@@ -1,7 +1,7 @@
 import 'bootstrap';
 import i18next from 'i18next';
 import * as yup from 'yup';
-import view from '../bin/view.js';
+import view from './view.js';
 import resources from '../languages/resources.js';
 import { loadRss, reloadSource } from './utils.js';
 
