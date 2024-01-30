@@ -1,10 +1,9 @@
 import onChange from 'on-change';
 
 const renderModal = (elements, state, i18n) => {
-  // Проверяем, что все необходимые элементы для модального окна определены
   if (!elements || !elements.modalSelectors) {
     console.error('Modal elements are not properly defined');
-    return; // Прекращаем выполнение, если элементы не определены
+    return;
   }
 
   const {
@@ -14,7 +13,6 @@ const renderModal = (elements, state, i18n) => {
     modalCloseButton,
   } = elements.modalSelectors;
 
-  // Обновляем текст контента модального окна на основе текущего состояния
   const post = state.posts.find(({ id }) => id === state.modal.clickedPostId);
   if (post) {
     const { title, description, link } = post;
@@ -45,9 +43,8 @@ export const postHandler = (state) => {
     console.error('Unable to find the link element within the clicked post');
     return;
   }
-
-  linkElement.classList.replace('fw-bold', 'fw-normal');
-  linkElement.classList.add('link-secondary');
+  linkElement.classList.remove('fw-bold');
+  linkElement.classList.add('fw-normal', 'link-secondary');
 };
 
 const postsRender = (elements, state, i18n) => {
