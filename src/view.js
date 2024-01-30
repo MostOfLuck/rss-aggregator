@@ -32,10 +32,11 @@ export const postHandler = (state) => {
   const linkElement = closestParent.querySelector('a');
 
   const handlePost = (element) => {
-    element.classList.replace('fw-bold', 'fw-normal');
-    element.classList.add('link-secondary');
+    if (element.classList.contains('fw-bold')) {
+      element.classList.remove('fw-bold');
+    }
+    element.classList.add('fw-normal', 'link-secondary');
   };
-
   return handlePost(linkElement);
 };
 
