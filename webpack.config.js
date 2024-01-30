@@ -2,7 +2,6 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-// Since __dirname is not available in ES module scope, we use a workaround for CommonJS
 const dirName = path.resolve(__dirname);
 
 const isProduction = process.env.NODE_ENV === 'production';
