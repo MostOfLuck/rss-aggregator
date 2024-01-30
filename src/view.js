@@ -27,34 +27,16 @@ const renderModal = (elements, state, i18n) => {
 };
 
 export const postHandler = (state) => {
-  if (!state.modal.clickedPost) {
-    console.error('Clicked post is not set in state');
-    return;
-  }
-
-  const closestParent = state.modal.clickedPost.closest('li');
-  if (!closestParent) {
-    console.error('Unable to find the closest parent li element');
-    return;
-  }
-
+  const { clickedPost } = state.modal;
+  const closestParent = clickedPost.closest('li');
   const linkElement = closestParent.querySelector('a');
-  if (!linkElement) {
-    console.error('Unable to find the link element within the clicked post');
-    return;
-  }
 
-  if (linkElement.classList.contains('fw-bold')) {
-    linkElement.classList.remove('fw-bold');
-  }
+  const handlePost = (element) => {
+    element.classList.replace('fw-bold', 'fw-normal');
+    element.classList.add('link-secondary');
+  };
 
-  if (!linkElement.classList.contains('fw-normal')) {
-    linkElement.classList.add('fw-normal');
-  }
-  if (!linkElement.classList.contains('link-secondary')) {
-    linkElement.classList.add('link-secondary');
-  }
-  console.log(`Classes after change: ${linkElement.className}`);
+  return handlePost(linkElement);
 };
 
 const postsRender = (elements, state, i18n) => {
