@@ -43,8 +43,18 @@ export const postHandler = (state) => {
     console.error('Unable to find the link element within the clicked post');
     return;
   }
-  linkElement.classList.remove('fw-bold');
-  linkElement.classList.add('fw-normal', 'link-secondary');
+
+  if (linkElement.classList.contains('fw-bold')) {
+    linkElement.classList.remove('fw-bold');
+  }
+
+  if (!linkElement.classList.contains('fw-normal')) {
+    linkElement.classList.add('fw-normal');
+  }
+  if (!linkElement.classList.contains('link-secondary')) {
+    linkElement.classList.add('link-secondary');
+  }
+  console.log(`Classes after change: ${linkElement.className}`);
 };
 
 const postsRender = (elements, state, i18n) => {
