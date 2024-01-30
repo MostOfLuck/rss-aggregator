@@ -1,6 +1,12 @@
 import onChange from 'on-change';
 
 const renderModal = (elements, state, i18n) => {
+  // Проверяем, что все необходимые элементы для модального окна определены
+  if (!elements || !elements.modalSelectors) {
+    console.error('Modal elements are not properly defined');
+    return; // Прекращаем выполнение, если элементы не определены
+  }
+
   const {
     modalTitle,
     modalBody,
@@ -8,38 +14,40 @@ const renderModal = (elements, state, i18n) => {
     modalCloseButton,
   } = elements.modalSelectors;
 
-  modalLinkButton.textContent = i18n.t('modal.linkButton');
-  modalCloseButton.textContent = i18n.t('modal.closeButton');
-
-  state.posts.forEach((post) => {
-    const {
-      title,
-      description,
-      link,
-      id,
-    } = post;
-
-    if (id === state.modal.clickedPostId) {
-      modalTitle.textContent = title;
-      modalBody.textContent = description;
-      modalLinkButton.setAttribute('href', link);
-    }
-
-    return state;
-  });
+  // Обновляем текст контента модального окна на основе текущего состояния
+  const post = state.posts.find(({ id }) => id === state.modal.clickedPostId);
+  if (post) {
+    const { title, description, link } = post;
+    modalTitle.textContent = title;
+    modalBody.textContent = description;
+    modalLinkButton.setAttribute('href', link);
+    modalLinkButton.textContent = i18n.t('modal.linkButton');
+    modalCloseButton.textContent = i18n.t('modal.closeButton');
+  } else {
+    console.error('No post found for the given clickedPostId');
+  }
 };
 
 export const postHandler = (state) => {
-  const { clickedPost } = state.modal;
-  const closestParent = clickedPost.closest('li');
+  if (!state.modal.clickedPost) {
+    console.error('Clicked post is not set in state');
+    return;
+  }
+
+  const closestParent = state.modal.clickedPost.closest('li');
+  if (!closestParent) {
+    console.error('Unable to find the closest parent li element');
+    return;
+  }
+
   const linkElement = closestParent.querySelector('a');
+  if (!linkElement) {
+    console.error('Unable to find the link element within the clicked post');
+    return;
+  }
 
-  const handlePost = (element) => {
-    element.classList.replace('fw-bold', 'fw-normal');
-    element.classList.add('link-secondary');
-  };
-
-  return handlePost(linkElement);
+  linkElement.classList.replace('fw-bold', 'fw-normal');
+  linkElement.classList.add('link-secondary');
 };
 
 const postsRender = (elements, state, i18n) => {
