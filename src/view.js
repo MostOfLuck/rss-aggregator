@@ -33,9 +33,8 @@ export const postHandler = (state) => {
 
   const handlePost = (element) => {
     if (element.classList.contains('fw-bold')) {
-      element.classList.remove('fw-bold');
+      element.classList.add('fw-normal', 'link-secondary');
     }
-    element.classList.add('fw-normal', 'link-secondary');
   };
   return handlePost(linkElement);
 };
