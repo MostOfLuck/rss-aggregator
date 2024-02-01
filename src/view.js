@@ -1,16 +1,14 @@
+/* eslint-disable max-len */
 import onChange from 'on-change';
 
 const renderModal = (elements, state, i18n) => {
-  if (!elements || !elements.modalSelectors) {
+  if (!elements || !elements.modalSelectors || !elements.modalSelectors.modalTitle || !elements.modalSelectors.modalBody || !elements.modalSelectors.modalLinkButton || !elements.modalSelectors.modalCloseButton) {
     console.error('Modal elements are not properly defined');
     return;
   }
 
   const {
-    modalTitle,
-    modalBody,
-    modalLinkButton,
-    modalCloseButton,
+    modalTitle, modalBody, modalLinkButton, modalCloseButton,
   } = elements.modalSelectors;
 
   const post = state.posts.find(({ id }) => id === state.modal.clickedPostId);
@@ -27,17 +25,38 @@ const renderModal = (elements, state, i18n) => {
 };
 
 export const postHandler = (state) => {
+  console.log('postHandler called'); // Логируем вызов функции
+
   const { clickedPost } = state.modal;
+  if (!clickedPost) {
+    console.error('Clicked post is not set in state');
+    return;
+  }
+
   const closestParent = clickedPost.closest('li');
+  if (!closestParent) {
+    console.error('Unable to find the closest parent li element');
+    return;
+  }
+
   const linkElement = closestParent.querySelector('a');
+  if (!linkElement) {
+    console.error('Unable to find the link element within the clicked post');
+    return;
+  }
+
+  console.log('Before changing class:', linkElement.className); // Логируем классы до изменения
 
   const handlePost = (element) => {
     if (element.classList.contains('fw-bold')) {
+      console.log('Removing fw-bold'); // Логируем удаление класса fw-bold
       element.classList.remove('fw-bold');
     }
     element.classList.add('fw-normal', 'link-secondary');
+    console.log('After changing class:', element.className); // Логируем классы после изменения
   };
-  return handlePost(linkElement);
+
+  handlePost(linkElement);
 };
 
 const postsRender = (elements, state, i18n) => {
