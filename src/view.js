@@ -2,13 +2,16 @@
 import onChange from 'on-change';
 
 const renderModal = (elements, state, i18n) => {
-  if (!elements || !elements.modalSelectors || !elements.modalSelectors.modalTitle || !elements.modalSelectors.modalBody || !elements.modalSelectors.modalLinkButton || !elements.modalSelectors.modalCloseButton) {
+  if (!elements || !elements.modalSelectors) {
     console.error('Modal elements are not properly defined');
     return;
   }
 
   const {
-    modalTitle, modalBody, modalLinkButton, modalCloseButton,
+    modalTitle,
+    modalBody,
+    modalLinkButton,
+    modalCloseButton,
   } = elements.modalSelectors;
 
   const post = state.posts.find(({ id }) => id === state.modal.clickedPostId);
@@ -23,7 +26,6 @@ const renderModal = (elements, state, i18n) => {
     console.error('No post found for the given clickedPostId');
   }
 };
-
 export const postHandler = (state) => {
   const { clickedPost } = state.modal;
   const closestParent = clickedPost.closest('li');
