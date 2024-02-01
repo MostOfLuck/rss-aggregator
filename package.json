@@ -1,6 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
+  "type": "module",
   "description": "An RSS aggregator is a tool that collects and displays updates from various websites' RSS feeds in one place.",
   "main": "./src/index.js",
   "scripts": {
