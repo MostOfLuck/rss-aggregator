@@ -1,5 +1,5 @@
-import { uniqueId } from 'lodash';
 import axios from 'axios';
+import { uniqueId } from 'lodash';
 import parse from './parse.js';
 
 const makeProxyURL = (url) => {
