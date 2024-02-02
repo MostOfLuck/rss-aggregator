@@ -28,16 +28,26 @@ const renderModal = (elements, state, i18n) => {
 };
 export const postHandler = (state) => {
   const { clickedPost } = state.modal;
+  if (!clickedPost) {
+    console.error('Clicked post is not defined');
+    return;
+  }
   const closestParent = clickedPost.closest('li');
-  const linkElement = closestParent.querySelector('a');
+  if (!closestParent) {
+    console.error('Failed to find the closest parent <li> element');
+    return;
+  }
 
-  const handlePost = (element) => {
-    if (element.classList.contains('fw-bold')) {
-      element.classList.remove('fw-bold');
-    }
-    element.classList.add('fw-normal', 'link-secondary');
-  };
-  return handlePost(linkElement);
+  const linkElement = closestParent.querySelector('a');
+  if (!linkElement) {
+    console.error('Failed to find the <a> element within the closest parent');
+    return;
+  }
+
+  if (linkElement.classList.contains('fw-bold')) {
+    linkElement.classList.remove('fw-bold');
+  }
+  linkElement.classList.add('fw-normal', 'link-secondary');
 };
 
 const postsRender = (elements, state, i18n) => {
