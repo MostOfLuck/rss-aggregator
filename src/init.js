@@ -105,8 +105,8 @@ export default () => {
       watchedState.modal.clickedPostId = target.dataset.id;
     }
     if (target.nodeName === 'A') {
-      (target.classList.replace('fw-bold', 'fw-normal'));
-      (target.classList.add('link-secondary'));
+      target.classList.remove('fw-bold');
+      target.classList.add('fw-normal', 'link-secondary');
     }
   });
   setTimeout(() => reloadSource(watchedState), delayTime);
