@@ -26,28 +26,17 @@ const renderModal = (elements, state, i18n) => {
     console.error('No post found for the given clickedPostId');
   }
 };
-export const postHandler = (state) => {
+const postHandler = (state) => {
   const { clickedPost } = state.modal;
-  if (!clickedPost) {
-    console.error('Clicked post is not defined');
-    return;
-  }
   const closestParent = clickedPost.closest('li');
-  if (!closestParent) {
-    console.error('Failed to find the closest parent <li> element');
-    return;
-  }
-
   const linkElement = closestParent.querySelector('a');
-  if (!linkElement) {
-    console.error('Failed to find the <a> element within the closest parent');
-    return;
-  }
 
-  if (linkElement.classList.contains('fw-bold')) {
-    linkElement.classList.remove('fw-bold');
-  }
-  linkElement.classList.add('fw-normal', 'link-secondary');
+  const handlePost = (element) => {
+    element.classList.replace('fw-bold', 'fw-normal');
+    element.classList.add('link-secondary');
+  };
+
+  return handlePost(linkElement);
 };
 
 const postsRender = (elements, state, i18n) => {
@@ -243,7 +232,7 @@ const render = (elements, state, i18n) => (path, value) => {
       break;
 
     case 'modal.clickedPost':
-      renderModal(state);
+      postHandler(state);
       break;
 
     case 'modal.clickedPostId':
