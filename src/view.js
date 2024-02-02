@@ -26,19 +26,6 @@ const renderModal = (elements, state, i18n) => {
     console.error('No post found for the given clickedPostId');
   }
 };
-export const postHandler = (state) => {
-  const { clickedPost } = state.modal;
-  const closestParent = clickedPost.closest('li');
-  const linkElement = closestParent.querySelector('a');
-
-  const handlePost = (element) => {
-    if (element.classList.contains('fw-bold')) {
-      element.classList.remove('fw-bold');
-    }
-    element.classList.add('fw-normal', 'link-secondary');
-  };
-  return handlePost(linkElement);
-};
 
 const postsRender = (elements, state, i18n) => {
   const { form, input, posts } = elements;
