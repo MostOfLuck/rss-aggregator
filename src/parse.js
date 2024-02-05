@@ -1,6 +1,7 @@
+/* eslint-disable import/no-cycle */
 import axios from 'axios';
 import { uniqueId } from 'lodash';
-import makeProxyURL from './utils.js';
+import { makeProxyURL } from './init.js';
 
 const parse = (content) => {
   try {
