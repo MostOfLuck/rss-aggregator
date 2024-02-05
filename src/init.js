@@ -2,8 +2,20 @@ import 'bootstrap';
 import i18next from 'i18next';
 import * as yup from 'yup';
 import view from './view.js';
-import resources from '../languages/resources.js';
+import resources from '../languages/index.js';
 import { loadRss, reloadSource } from './parse.js';
+
+export const makeProxyURL = (url) => {
+  const newProxyURL = new URL('https://allorigins.hexlet.app');
+
+  newProxyURL.pathname = '/get';
+  newProxyURL.searchParams.append('disableCache', true);
+  newProxyURL.searchParams.append('url', url);
+
+  const resultingURL = newProxyURL.href.toString();
+
+  return resultingURL;
+};
 
 export default () => {
   const state = {
@@ -52,15 +64,6 @@ export default () => {
     lng: defaultLanguage,
     debug: false,
     resources,
-  });
-
-  yup.setLocale({
-    string: {
-      url: i18n.t('errors.urlInvalid'),
-    },
-    mixed: {
-      notOneOf: i18n.t('errors.rssDuplicated'),
-    },
   });
 
   const watchedState = view(state, elements, i18n);
