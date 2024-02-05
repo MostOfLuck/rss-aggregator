@@ -35,4 +35,4 @@ $  make develop
 Demo:
 ------
 
-You can test my app here: [RSS Aggregator](https://frontend-project-11-jbr8-9cglbyg29-sams-projects-8bd7ebfe.vercel.app/)
+You can test my app here: [RSS Aggregator](https://frontend-project-11-jbr8-9cv2ozm81-sams-projects-8bd7ebfe.vercel.app/)
